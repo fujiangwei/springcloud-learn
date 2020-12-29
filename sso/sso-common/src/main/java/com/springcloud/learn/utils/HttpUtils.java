@@ -146,12 +146,12 @@ public class HttpUtils {
         return null;
     }
 
-    public static String wrapReqUrl(final String protocol, final String server,final String uri) {
+    public static String wrapReqUrl(final String protocol, final String server, final String uri) {
         Asserts.notEmpty(protocol, "请求协议不能为空");
         Asserts.notEmpty(server, "请求服务器地址不能为空");
         Asserts.notEmpty(uri, "请求资源定位符不能为空");
 
-        if (uri.contains("/")) {
+        if (uri.startsWith("/")) {
             return protocol + server + uri;
         }
 

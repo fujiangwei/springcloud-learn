@@ -21,7 +21,7 @@ public class StrConsts {
 
     public final static String LOGIN_INDEX_URI = "/";
 
-    public final static String SSO_INDEX = "/index";
+    public final static String SERVICE_INDEX = "/index";
 
     public final static String VERIFY_TOKEN_URI = "/verifyToken";
 

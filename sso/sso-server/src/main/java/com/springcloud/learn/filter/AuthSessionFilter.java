@@ -72,7 +72,7 @@ public class AuthSessionFilter implements Filter {
                 return;
             }
             // 认证中心自己登录认证跳转页
-            if (!StringUtils.equals(StrConsts.SSO_INDEX, uri)) {
+            if (!StringUtils.equals(StrConsts.SERVICE_INDEX, uri)) {
                 response.sendRedirect("/index");
                 return;
             }

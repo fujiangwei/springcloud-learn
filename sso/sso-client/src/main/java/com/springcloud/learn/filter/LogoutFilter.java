@@ -73,7 +73,12 @@ public class LogoutFilter implements Filter {
             }
 
             // 注销后重定向 跳转至登录页
-            response.sendRedirect(HttpUtils.wrapReqUrl(StrConsts.HTTP_PROTOCOL, ssoServer, StrConsts.LOGIN_INDEX_URI));
+            String localAddr = request.getLocalAddr();
+            int localPort = request.getLocalPort();
+            // 首页返回地址
+            String serviceIndex = StrConsts.CLIENT_URL_KEY + "=" + HttpUtils.wrapReqUrl(StrConsts.HTTP_PROTOCOL,
+                    localAddr + ":" + localPort, StrConsts.SERVICE_INDEX);
+            response.sendRedirect(HttpUtils.wrapReqUrl(StrConsts.HTTP_PROTOCOL, ssoServer, StrConsts.LOGIN_INDEX_URI) + "?" + serviceIndex);
             return;
         }
 
