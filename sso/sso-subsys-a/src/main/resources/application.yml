@@ -1,0 +1,24 @@
+# 端口
+server:
+  port: 8080
+# 生效的具体环境的配置文件
+spring:
+  profiles:
+    active: dev
+# 单点登录服务地址
+sso:
+  server: 192.168.158.168:8086
+
+---
+# 生产环境
+server:
+  port: 8081
+spring:
+  profiles: prod
+
+---
+# 测试环境
+server:
+  port: 8082
+spring:
+  profiles: test

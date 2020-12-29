@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.springclod.learn</groupId>
+    <artifactId>sso</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <!--模块-->
+    <modules>
+        <module>sso-client</module>
+        <module>sso-server</module>
+        <module>sso-subsys-a</module>
+        <module>sso-subsys-b</module>
+        <module>sso-common</module>
+    </modules>
+
+    <!--项目描述-->
+    <description>sso(Single Sign On) 单点登录</description>
+
+    <!--开发者信息-->
+    <developers>
+        <developer>
+            <name>kingson</name>
+        </developer>
+    </developers>
+
+    <!--属性配置信息-->
+    <properties>
+        <springboot-version>2.1.8.RELEASE</springboot-version>
+        <servlet-api-version>3.1.0</servlet-api-version>
+        <commons-lang3-version>3.7</commons-lang3-version>
+        <guava-version>27.1-jre</guava-version>
+        <lombok-version>1.18.8</lombok-version>
+        <httpclient-version>4.5.12</httpclient-version>
+    </properties>
+
+    <!--依赖管理
+        1、依赖统一管理(parent中定义，需要变动dependency版本，只要修改一处即可)；
+        2、代码简洁(子model只需要指定groupId、artifactId即可)
+        3、dependencyManagement只会影响现有依赖的配置，但不会引入依赖，即子model不会继承parent中dependencyManagement所有预定义的depandency，
+            只引入需要的依赖即可，简单说就是“按需引入依赖”或者“按需继承”；
+            因此，在parent中严禁直接使用depandencys预定义依赖，坏处是子model会自动继承depandencys中所有预定义依赖；
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <!--引入spring-boot-dependencies依赖-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--引入servlet-api-->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api-version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--commons-lang3-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3-version}</version>
+            </dependency>
+            <!--guava-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

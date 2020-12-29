@@ -1,0 +1,21 @@
+# 端口
+server:
+  port: 8086
+# 生效的配置文件，以下表示生效application-prod.yml配置文件
+spring:
+  profiles:
+    active: prod
+
+---
+# 生产环境
+server:
+  port: 8087
+spring:
+  profiles: prod
+
+---
+# 测试环境
+server:
+  port: 8088
+spring:
+  profiles: test
