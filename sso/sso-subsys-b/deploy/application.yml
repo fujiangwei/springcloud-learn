@@ -6,7 +6,7 @@ spring:
     active: dev
 #单点登录服务地址
 sso:
-  server: 10.20.25.219:8087
+  server: 192.168.158.168:8087
 ---
 server:
   port: 8084
