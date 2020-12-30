@@ -91,7 +91,7 @@ public class LoginFilter implements Filter {
             log.info("tokenVerify result = " + tokenVerifyR);
             // 校验通过
             if (!StringUtils.equals("-1", tokenVerifyR)) {
-                // 浏览器与子系统之间的会话信息设置
+                // 浏览器与子系统之间的会话信息设置(局部会话信息)
                 // 设置为已登录
                 session.setAttribute(StrConsts.IS_LOGIN_FLAG, Boolean.TRUE);
                 // 设置token信息

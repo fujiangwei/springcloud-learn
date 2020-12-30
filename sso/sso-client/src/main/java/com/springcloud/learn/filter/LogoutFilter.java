@@ -57,12 +57,14 @@ public class LogoutFilter implements Filter {
         String token = request.getParameter(StrConsts.LOGIN_OUT_KEY);
         // 子系统主动退出请求
         if (StringUtils.isEmpty(token)) {
+            // 子系统与浏览器之间的会话信息获取token
             token = (String)session.getAttribute(StrConsts.TOKEN_KEY);
             log.info("子系统主动注销请求，token: {}", token);
             // 向认证中心发送注销请求
             Map<String, String> paramMap = Maps.newHashMap();
             paramMap.put(StrConsts.LOGIN_OUT_KEY, token);
             HttpUtils.doGet(HttpUtils.wrapReqUrl(StrConsts.HTTP_PROTOCOL, ssoServer, StrConsts.LOGIN_OUT_URI), paramMap);
+            // 获取并删除会话信息
             session = StorageSingleton.getInstance().getAndRemoveSession(token);
             // 注销本地会话
             if (null != session) {

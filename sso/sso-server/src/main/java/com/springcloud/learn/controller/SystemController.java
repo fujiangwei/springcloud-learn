@@ -109,6 +109,11 @@ public class SystemController {
             // 子系统发起的注销请求，会话信息为存储会话信息
             log.info("子系统发起的注销请求");
             session = StorageSingleton.getInstance().getAndRemoveSession(token);
+            // 校验token是否有效
+            if (null == session) {
+                log.info("子系统发起的注销请求token无效token: {}", token);
+                return "redirect:/";
+            }
         }
 
         if (null != session) {
