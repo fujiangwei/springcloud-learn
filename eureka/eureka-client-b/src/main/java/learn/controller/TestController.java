@@ -31,6 +31,7 @@ public class TestController {
         List<ServiceInstance> instances = client.getInstances("kingson-eureka-client-provider");
         if (CollectionUtils.isNotEmpty(instances)) {
             ServiceInstance serviceInstance = instances.get(0);
+            System.out.println(serviceInstance.getMetadata());
             return restTemplate.getForObject("http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/test", String.class);
         }
 

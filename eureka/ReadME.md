@@ -187,6 +187,44 @@ Eureka是Netflix开发的服务发现框架，本身是一个基于REST的服务
     随着版本变迁把DiscoveryClient服务注册抽离出来变成了ServiceRegistry抽象，专门负责服务注册，
     DiscoveryClient专门负责服务发现，还提供了负载均衡的发现LoadBalancerClient抽象，DiscoveryClient通过@EnableDiscoveryClient的方式进行启用。
     
-
+* 安全访问配置，访问Eureka Server需要认证信息，此时Eureka Client将无法访问注册
+    
+    pom依赖
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+    application.properties
+    
+        # 安全访问用户和密码配置（默认配置值可参考SecurityProperties.java），如下：
+        #   private String name = "user";
+        #   private String password = UUID.randomUUID().toString();
+        
+        # 不配置的话默认用户名为user
+        spring.security.user.name=kingson
+        # 不配置的话默认密码为随机UUID串，Eureka Server启动时会在控制台打印出来
+        spring.security.user.password=111111
+        
+        # 安全访问加上用户名和密码
+          #eureka.client.serviceUrl.defaultZone=http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+    
+    应用启动类（这个是针对一些安全配置进行设置，如下为禁用CSRF保护）:
+    
+        /**
+         * 安全访问开启(新版（Spring Cloud 2.0 以上）的security默认启用了csrf检验，要在Eureka Server端配置security的csrf检验为false,否则Eureka Client将无法注册。)
+         */
+        @EnableWebSecurity
+        public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+            @Override
+            protected void configure(HttpSecurity http) throws Exception {
+                // 禁用CSRF保护
+                // http.csrf().disable();
+                // 或者禁用/eureka/**端点的这个请求,以便客户端能注册
+                http.csrf().ignoringAntMatchers("/eureka/**");
+                super.configure(http);
+            }
+        }
         
     
